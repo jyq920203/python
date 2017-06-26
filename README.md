@@ -1,4 +1,1 @@
-python
-======
-
-python学习
+the way that I learn python
