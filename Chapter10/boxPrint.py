@@ -15,6 +15,7 @@ for sym,wid,hei in (('*',4,4),('0',20,5),('x',1,3),('zz',3,3)):
     try:
         boxPrint(sym,wid,hei)
     except Exception as err:
+        #return an class Exception saved as err
         print('An error happened:'+ str(err))
         #use function str() to print err,if you use 'err',then will print err
 
