@@ -19,6 +19,4 @@ for sym,wid,hei in (('*',4,4),('0',20,5),('x',1,3),('zz',3,3)):
         print('An error happened:'+ str(err))
         #use function str() to print err,if you use 'err',then will print err.
 
-
-
-
+#ios add by tig
