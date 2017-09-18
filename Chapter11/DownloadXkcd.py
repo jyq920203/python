@@ -5,13 +5,26 @@
 
 import requests,bs4,os
 url='http://www.xkcd.com'
-content = requests.get(url)
-beautifulSoup = bs4.BeautifulSoup(content.text, "html.parser")
-# print(beautifulSoup.select('#comic img')[0].get('src'))
-urlname = beautifulSoup.select('#comic img')[0].get('src')
+os.makedirs('.'+os.path.sep+'xkcd',exist_ok=True)
+while not url.endswith('#'):
+    print(url)
+    print('Downloading page %s...' %url)
+    content = requests.get(url)
+    beautifulSoup = bs4.BeautifulSoup(content.text, "html.parser")
+    # print(beautifulSoup.select('#comic img')[0].get('src'))
+    urlname = 'http:'+ beautifulSoup.select('#comic img')[0].get('src')
+    print('Downloading image %s...' %urlname)
+    previPage =beautifulSoup.select('a[rel="prev"]')[0].get('href')
+    res = requests.get(urlname)
 
-os.mkdir()
-imgfile = open(os.path.join(urlname.basename),'wb')
+
+    for imgcontent in res.iter_content(100000):
+        imgfile = open(os.path.join('xkcd', os.path.basename(urlname)), 'wb')
+        imgfile.write(imgcontent)
+        url = 'https://xkcd.com/' + previPage
+    imgfile.close()
+
+
 
 
 
@@ -25,4 +38,5 @@ imgfile = open(os.path.join(urlname.basename),'wb')
 
 #实在找不到这个标签和其他标签有什么不同的时候就用id标签来寻找
 
-#207页，章节中的创建文件目录不会使用函数makedir，查看第八章节，笔记记录在Chapter 8中
+#todo
+学习下iter_content
