@@ -38,5 +38,3 @@ while not url.endswith('#'):
 
 #实在找不到这个标签和其他标签有什么不同的时候就用id标签来寻找
 
-#todo
-学习下iter_content

@@ -10,6 +10,22 @@ webdriver有很多方法在页面中寻找元素主要分为两种，find_elemen
 find_element_* 方法用于返回WebElement对象，包含页面中匹配查询的第一个元素
 find_elements_* 方法用于返回WebElement对象，包含页面中所有匹配的元素
 
+找元素的方法有很多种：
+1. 通过CSS class name的元素
+2. 匹配CSS selector的元素
+3. 匹配id属性值的元素
+4. 完全匹配提供的 text的<a>元素
+5. 包含匹配 text的<a>元素
+6. 匹配name属性值
+7. 匹配tagname，就是html中的标签名
+只有tagname这个与大小写无关，其他都是大小写严格匹配的
+
+## 11.8.3 点击页面
+WebElement对象有个方法叫做click()方法，可以点击
+
+## 11.8.4 填写并提交表单
+
+
 
 
 
