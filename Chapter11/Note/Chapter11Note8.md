@@ -14,8 +14,8 @@ find_elements_* 方法用于返回WebElement对象，包含页面中所有匹配
 1. 通过CSS class name的元素
 2. 匹配CSS selector的元素
 3. 匹配id属性值的元素
-4. 完全匹配提供的 text的<a>元素
-5. 包含匹配 text的<a>元素
+4. 完全匹配提供的 text的\<a\>元素
+5. 包含匹配 text的\<a\>元素
 6. 匹配name属性值
 7. 匹配tagname，就是html中的标签名
 只有tagname这个与大小写无关，其他都是大小写严格匹配的
@@ -24,16 +24,31 @@ find_elements_* 方法用于返回WebElement对象，包含页面中所有匹配
 WebElement对象有个方法叫做click()方法，可以点击
 
 ## 11.8.4 填写并提交表单
+* 向web页面的文本字段发送点击键，只要找到那个文本字段的\<input\>或\<textarea\>元素，然后调用
+send_keys()方法，里面填写的是，你需要填写在input中的内容
+* 在任何元素上调用submit()方法，都等同于点击该元素在表单的Submit按钮（在gmail中没有成功，仍调用的是click方法）
 
+## 11.8.5 发送特殊键
+selenium有个模块，针对不能用字符串值输入的键盘击键，这些值保存在selenium.webdriver.common.keys模块中
+这个模块名字很长，所以在程序顶部写上
+```python
+from selenium.webdriver.common.keys import Keys
 
+```
+原来需要写from selenium.webdriver.common.keys的地方直接用Keys就可以了
+可以用send_keys()调用
+```python
+htmlelement.send_keys(Keys.END)
+```
+## 11.8.6 点击浏览器按钮
+selenium可以模拟浏览器的按钮
+* browser.back()    后退
+* browser.forward()  前进
+* browser.refresh()  刷新
+* browser.quit()     退出
 
-
-
-
-
-
-
-
+## 11.8.7 关于selenium更多信息
+[selenium-python doc](http://selenium-python.readthedocs.org/)
 
 
 
