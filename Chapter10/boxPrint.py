@@ -1,6 +1,6 @@
 def boxPrint(symbol,width,height):
     if len(symbol)>1:
-        raise Exception('the length of symbol is larger than 1')
+        raise Exception('the length of symbol is larger than Chapter1')
     if width <= 2:
         raise Exception('please input a number of width larger than 2')
     if height <= 2:

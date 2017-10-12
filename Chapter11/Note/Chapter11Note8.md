@@ -58,7 +58,8 @@ selenium可以模拟浏览器的按钮
 
 ##遇到报错
 Q: 执行browser=webdriver.Chrome()
-selenium.common.exceptions.WebDriverException: Message: 'chromedriver' executable needs to be in PATH. Please see https://sites.google.com/a/chromium.org/chromedriver/home
+selenium.common.exceptions.WebDriverException: Message: 'chromedriver' executable needs 
+to be in PATH. Please see https://sites.google.com/a/chromium.org/chromedriver/home
 
 A:
 下载http://chromedriver.storage.googleapis.com/index.html?path=2.15/

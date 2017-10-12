@@ -14,5 +14,5 @@ text = '\n'.join(lines)
 #pass value to clipboard
 pyperclip.copy(text)
 # from this demo we can learn something like
-# 1.str.join and str.split
+# Chapter1.str.join and str.split
 # 2.pyperclip.paste and pyperclip.copy()

@@ -1,5 +1,5 @@
 # 要做的事情：
-# 1.登陆到xkcd网页中，找到页面中图片的标签，下载下来
+# Chapter1.登陆到xkcd网页中，找到页面中图片的标签，下载下来
 # 2.然后获取prev的link，然后重复
 # 3.直到网页地址是以#号结尾的，因为这是第一张
 
@@ -30,7 +30,7 @@ while not url.endswith('#'):
 
 
 #出现过错误，
-# 1.错误是BeautifulSoup没有使用"html.parser"
+# Chapter1.错误是BeautifulSoup没有使用"html.parser"
 #2.url没有加http开头
 
 #img 标签

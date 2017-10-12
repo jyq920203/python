@@ -18,7 +18,7 @@ PassNextElem.click()
 
 
 #todo
-# 在找passWdElem = browser.find_element_by_xpath('//*[@id="password"]/div[1]/div/div[1]/input')
+# 在找passWdElem = browser.find_element_by_xpath('//*[@id="password"]/div[Chapter1]/div/div[Chapter1]/input')
 # 通过xpath找不到元素
 # http://www.jianshu.com/p/89c10770d72c
 # http://www.cnblogs.com/alwayswyy/p/4988545.html
