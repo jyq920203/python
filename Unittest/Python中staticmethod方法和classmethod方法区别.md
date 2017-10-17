@@ -95,3 +95,6 @@ classmethod must have a reference to a class object as the first parameter,
 whereas staticmethod can have no parameters at all.
 
 #todo 没写完
+#todo  
+1.他们的区别是什么？
+2.为什么要有他们？
