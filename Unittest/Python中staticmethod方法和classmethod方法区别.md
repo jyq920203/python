@@ -15,8 +15,6 @@ https://julien.danjou.info/blog/2013/guide-python-static-class-abstract-methods
 讲解了为什么要使用静态方法和类方法，中文翻译的不是很好，回头在看下英文版的
 https://julien.danjou.info/blog/2013/guide-python-static-class-abstract-methods
 
-
-
 ## Python的静态方法和类成员方法
 参考http://www.cnblogs.com/2gua/archive/2012/09/03/2668125.html
 这篇也很经典！！！，讲述了静态方法类方法关于对类属性和实例属性的访问权限
@@ -28,7 +26,6 @@ Python的静态方法和类成员方法都可以被类或实例访问，两者�
 如果上述执行过程太复杂，记住以下两点就好了：
 静态方法：无法访问类属性、实例属性，相当于一个相对独立的方法，跟类其实没什么关系，换个角度来讲，其实就是放在一个类的作用域里的函数而已。
 类成员方法：可以访问类属性，无法访问实例属性。上述的变量val1，在类里是类变量，在实例中又是实例变量，所以容易混淆。
-
 
 ## python 类的实例方法，静态方法，类方法辨析和实例讲解
 参考http://blog.csdn.net/a447685024/article/details/52424481
@@ -47,10 +44,15 @@ whereas staticmethod can have no parameters at all.
 ## 实例方法、类方法和静态方法
 参考：http://www.cnblogs.com/qiaojushuang/p/6403371.html
 这篇文章很棒，讲解了三者的区别，还有使用类方法和静态方法有什么好处
-总结：静态方法大概只是为了代码更好的组织，其实跟类类的属性，都没啥关系，但是调用的时候，要用
+总结：
+用不用cls，self都没有关系（可以用其他的参数名称代替），由参数的位置决定
+静态方法大概只是为了代码更好的组织，其实跟类类的属性，都没啥关系，但是调用的时候，要用
 实例或者类来调用，在子类中可以继承静态方法，但是不能修改。
 类方法传入的第一个参数就是cls，就是类本身，如果子类继承父类，子类会拥有父类的类方法，并且这个方法会
 自动指向子类本身，这个特性在工厂函数中很有用。
 
-# Python 中的 classmethod 和 staticmethod 有什么具体用途？
+## Python 中的 classmethod 和 staticmethod 有什么具体用途？
 参考：https://www.zhihu.com/question/20021164
+
+## What is the difference between @staticmethod and @classmethod in Python?
+https://stackoverflow.com/questions/136097/what-is-the-difference-between-staticmethod-and-classmethod-in-python?noredirect=1&lq=1
