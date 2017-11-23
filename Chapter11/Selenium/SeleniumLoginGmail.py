@@ -11,7 +11,7 @@ time.sleep(2)
 
 passWdElem = browser.find_element_by_css_selector('.whsOnd')
 print('dinf')
-passWdElem.send_keys('Jyq@920203')
+passWdElem.send_keys('********')
 PassNextElem = browser.find_element_by_xpath('//*[@id="passwordNext"]/content/span')
 PassNextElem.click()
 
