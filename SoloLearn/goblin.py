@@ -14,6 +14,7 @@ def get_input():
     else:
         print(ver("nothing"))
 
+
 class GameObject:
     classname=""
     desc=""
@@ -50,7 +51,6 @@ class Goblin(GameObject):
     def de(self,value):
         self._desc = value
 
-
 def hit(noun):
     if noun in GameObject.objects:
         thing = GameObject.objects[noun]
@@ -65,6 +65,7 @@ def hit(noun):
     return msg
 
 goblin = Goblin("yijing")
+
 
 def examine(noun):
     if noun in GameObject.objects:
