@@ -35,20 +35,20 @@ class Goblin(GameObject):
         super().__init__(name)
 
     @property
-    def de(self):
+    def desc(self):
         if self.health>=3:
             return self._desc
         elif self.health==2:
-            healthline = "It has a wound on its knee."
+            health_line = "It has a wound on its knee."
         elif self.health==1:
-            healthline = "Its left arm has been cut off!"
+            health_line = "Its left arm has been cut off!"
         elif self.health<=0:
             health_line = "It is dead."
         return self._desc + "\n" + health_line
 
 
-    @de.setter
-    def de(self,value):
+    @desc.setter
+    def desc(self,value):
         self._desc = value
 
 def hit(noun):
