@@ -1,8 +1,10 @@
-from tkinter import *
+import tkinter.filedialog
 import tkinter.messagebox as messagebox
+from tkinter import *
+
 from ReadConfig import ReadConfig
 from xmlParse import xmlParse
-import tkinter.filedialog
+
 
 class AppConfig(Frame):
 
