@@ -20,6 +20,8 @@ ReadConfig.py--这个文件做的就是解析我的配置文件了。这里面�
 ### 修改xml文件
 xmlParse.py--这个文件做的事情是我去修改配置文件。
 xml.etree.ElementTree 这个是用的这个包来修改xml中的值
+可以参考下印象笔记中的“用 ElementTree 在 Python 中解析 XML”,"Python 使用 ElementTree 处理 XML"这两个文章，程序中用到的概念很少，用到了根据xpath来找知道我要的tag，然后通过set方法来修改xml
+
 
 
 ### 如何打包py程序变成windows上面的exe可执行文件
