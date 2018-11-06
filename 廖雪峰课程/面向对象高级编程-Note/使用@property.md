@@ -94,7 +94,7 @@ class Student(object):
         return self._birth
 
     @birth.setter
-    def birth(self, value):
+    def (self, value):
         self._birth = value
 
     @property
