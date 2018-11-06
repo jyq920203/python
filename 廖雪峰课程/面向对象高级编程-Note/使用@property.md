@@ -85,3 +85,19 @@ TypeError: unbound method set_score() must be called with Student instance as fi
         self._score = value
 ```
 
+`@property` 可以让调用者写出简单的代码，同时可以对参数进行必要的检查，这样程序运行的时候，就可以减少出错的可能性。如果只有`@porperty` 没有`setter`那么这个属性就是**只读属性**。如下面的age：
+```python
+class Student(object):
+
+    @property
+    def birth(self):
+        return self._birth
+
+    @birth.setter
+    def birth(self, value):
+        self._birth = value
+
+    @property
+    def age(self):
+        return 2014 - self._birth
+```
