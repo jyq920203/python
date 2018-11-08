@@ -24,6 +24,7 @@ class Dynamo:
 
 
 dyn = Dynamo()
+
 print(dyn.color)
 print(dir(dyn))
 dyn.color = 'ihao'
