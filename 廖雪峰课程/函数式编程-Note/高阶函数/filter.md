@@ -76,3 +76,123 @@ for n in su_filter():
 可以看到如果我们不加括号，那么这个只是一个函数，如果加了括号，那么他就是一个生成器了。
 * 返回该值，并且将他的倍数都通过filter去除掉，除以该数，余数大于0的，说明不是他的倍数，返回都是True，这个时候将这些数保留并且将过滤过一遍的列表赋值给下次循环返回的值的新列表。
 * 记住，生成器是一个可迭代的对象。对于生成器序列中的每一个值，我们要做一次判断，判断该值的大小，然后输出该值。
+
+练习：
+```python
+def is_palindrome(n):
+    s = str(n)
+    # print(s)
+    if len(s)==1:
+        return True
+    else:
+        lst = [c for c in s]
+        # print(lst)
+        for i in range(len(lst)):
+            if lst[i]==lst[len(lst)-i-1]:
+                return True
+            else:
+                return False
+
+
+# 测试:
+output = filter(is_palindrome, range(1, 1000))
+print('1~1000:', list(output))
+if list(filter(is_palindrome, range(1, 200))) == [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 22, 33, 44, 55, 66, 77, 88, 99, 101, 111, 121, 131, 141, 151, 161, 171, 181, 191]:
+    print('测试成功!')
+else:
+    print('测试失败!')
+
+```
+
+网上还看到一种我没想到的解法，回文串就是把字符串反过来跟原字符串应该是相等的。
+```python
+def is_palindrome(n):
+    if str(n) == str(n)[::-1]:
+        return True
+    else:
+        return False
+
+
+# 测试:
+output = filter(is_palindrome, range(1, 1000))
+print('1~1000:', list(output))
+if list(filter(is_palindrome, range(1, 200))) == [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 22, 33, 44, 55, 66, 77, 88, 99, 101, 111, 121, 131, 141, 151, 161, 171, 181, 191]:
+    print('测试成功!')
+else:
+    print('测试失败!')
+```
+这种切片的写法是相当简单的。四行就搞定了。
+
+还有一种写法
+```python
+def is_palindrome(n):
+    s=str(n)
+    if len(s)==1:
+        return True
+    else:
+        lst = [c for c in s]
+        new_list = []
+        for x in range(len(lst)):
+            new_list.append(lst[len(lst)-x-1])
+        if (''.join(new_list))==s:
+            return True
+        else:
+            return False
+
+
+# 测试:
+output = filter(is_palindrome, range(1, 1000))
+print('1~1000:', list(output))
+if list(filter(is_palindrome, range(1, 200))) == [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 22, 33, 44, 55, 66, 77, 88, 99, 101, 111, 121, 131, 141, 151, 161, 171, 181, 191]:
+    print('测试成功!')
+else:
+    print('测试失败!')
+```
+这里面有把int转换为str，把str转换为list，把列表转换为str。
+
+
+---
+# 涉及到补充知识点：
+
+## str() 会怎么样
+str()这个函数
+```python
+>>> str([1,2,3,4])
+'[1, 2, 3, 4]'
+>>> a= str([1,2,3,4])
+>>> a[1]
+'1'
+>>> a
+'[1, 2, 3, 4]'
+>>> a[2]
+','
+>>> a[0]
+'['
+```
+str(),就是将传入的object，str化，如果传入的是列表，那么连列表里面的符号都会变成str中的的元素。对传入的对象两边加上双引号，表示这个是一个字符串。
+
+## list() 会怎么样
+list() 也是一个类型构造器，他构造的是将传入的对象，转换为list，包括其中的特殊符号。
+```python
+>>> list('21')
+['2', '1']
+>>> list('nid.ddkj'
+... )
+['n', 'i', 'd', '.', 'd', 'd', 'k', 'j']
+```
+
+## join() && strip()
+* join 
+看下python3 cookbook中的“2.14章节 合并拼接字符串”
+
+* strip 
+strip是一个字符串用后面的分割符号进行分割，最后组成一个list返回。
+```python
+>>> '1-2-3-4'.split('-')
+['1', '2', '3', '4']
+>>> '1,2,3'.split(',')
+['1', '2', '3']
+```
+
+## 双冒号的用法
+见《廖雪峰课程》中的高级特性-切片。
