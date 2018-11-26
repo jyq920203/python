@@ -4,90 +4,94 @@ import requests, os, bs4, re, datetime,threading
 today = datetime.datetime.now()
 todaydate = today.strftime('%Y-%m-%d')
 filetodaydate = today.strftime('%Y%m%d')
-print(todaydate)
+
+url0='http://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=sgshqd&TABKEY=tab1&txtStart=%s&txtEnd=%s&random=0.9777636623336019' %(todaydate,todaydate)
+url1='http://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=sgshqd&TABKEY=tab1&PAGENO=2&txtStart=%s&txtEnd=%s&random=0.5149407802321062' %(todaydate,todaydate)
+url2='http://www.szse.cn/api/report/ShowReport/data?SHOWTYPE=JSON&CATALOGID=sgshqd&TABKEY=tab1&PAGENO=3&txtStart=%s&txtEnd=%s&random=0.42479184932749225' % (todaydate,todaydate)
 
 
-url = 'http://www.szse.cn/szseWeb/FrontController.szse?randnum=0.7266794520575823&ACTIONID=7&AJAX=AJAX-TRUE&CATALOGID=sgshqd&TABKEY=tab1&REPORT_ACTION=search&txtStart=%s&txtEnd=%s' % (todaydate, todaydate)
-url1 = 'http://www.szse.cn/szseWeb/FrontController.szse?randnum=0.7266794520575823&ACTIONID=7&AJAX=AJAX-TRUE&CATALOGID=sgshqd&TABKEY=tab1&txtStart=%s&txtEnd=%s&tab1PAGENO=2&tab1PAGECOUNT=2&tab1RECORDCOUNT=54&REPORT_ACTION=navigate' % (todaydate, todaydate)
-print("下载地址1为：" + url)
-print("下载地址2为：" + url1)
+urllist = [url0, url1,url2]
+partfilepath=[]
+absofilepath=[]
+for useurl in urllist:
+    resp = requests.get(useurl)
+    jj=resp.json()
+    for i in range(len(jj[0]['data'])):
+        a= jj[0]['data'][i]['jjdm']
+        partfilepath.append(re.findall(r'/modules.*\.txt',a))
 
-urllist = [url, url1]
-finallist = ""
-for num in range(len(urllist)):
-    rep = requests.get(urllist[num],timeout = 500)
-    beauty = bs4.BeautifulSoup(rep.text, "html.parser")
-    for i in range(len(beauty.select('span[style="cursor:pointer"]'))):
-        ha = beauty.select('span[style="cursor:pointer"]')[i]
-        finallist = finallist + ha.get('onclick')
-        # 获取到onclick的属性值放到 finallist中
-
-matchline = re.findall(r'pcf\_\d+\_\d+', finallist)
-# matchline中放置文件名称，是一个列表，是所有的文件的名字
-# print(matchline)
-print("一共" + str(len(matchline)) + "个文件")
-
-txtdownloadurl = []
-xmldownloadurl = []
-textfilename = []
-xmlfilename = []
-finaltextname = []
-textfilelist = []
-xmlfilelist = []
+for i in range(len(partfilepath)):
+    absofilepath.append('http://www.szse.cn'+partfilepath[i][0])
 
 textnum = [159922, 159923, 159925, 159928, 159929, 159930,
            159931, 159933, 159935, 159936, 159938, 159939,
            159940, 159944, 159945, 159946, 159951, 159953]
-#txt 的ETF
-for numtext in textnum:
-    finaltextname.append('pcf_' + str(numtext) + '_' + filetodaydate)
-# print("下载文件" + str(finaltextname))
-# 将txt文件的凑成文件名字放到finaltextname列表中
+txtNUM=[] #txt文件在下载文件中序列号
+xmlNUM=[] #xml文件在下载文件中序列号
 
-for name in matchline:
-    if name in finaltextname:
-        textfilelist.append(name)
-    if name not in finaltextname:
-        xmlfilelist.append(name)
+for i in range(len(absofilepath)):
+    for num in textnum:
+        if str(num) in absofilepath[i]:
+            txtNUM.append(i)
 
-for url in textfilelist:
-    # print(url)
-    txtdownloadurl.append('http://www.szse.cn/szseWeb/FrontController.szse?ACTIONID=downloadEtf&filename=' + url)
-    textfilename.append(url + '.txt')
-for url in xmlfilelist:
-    # print(url)
-    xmldownloadurl.append('http://www.szse.cn/szseWeb/FrontController.szse?ACTIONID=downloadEtf&filename=' + url)
-    xmlfilename.append(url + '.xml')
+a=[i for i in range(54)]
+
+def In(o):
+        if o not in txtNUM:
+            return True
+        else:
+            return False
+xmlNUM=list(filter(In,a))
+# print(txtNUM)
+# print(xmlNUM)
+
+downloadXmlpath=[] # 网页上取的xml下载路径['http://www.szse.cn/modules/report/views/eft_download_new.html?path=%2Ffiles%2Ftext%2FETFDown%2F&filename=pcf_159001_20181126%3B159001ETF20181126&opencode=ETF15900120181126.txt'
+downloadTxtpath=[] # 网页上去的txt下载路径['http://www.szse.cn/modules/report/views/eft_download_new.html?path=%2Ffiles%2Ftext%2FETFDown%2F&filename=pcf_159922_20181126%3B159922ETF20181126&opencode=ETF15992220181126.txt',
+
+for i in txtNUM:
+    downloadTxtpath.append(absofilepath[i])
+for i in xmlNUM:
+    downloadXmlpath.append(absofilepath[i])
+# print(downloadXmlpath)
+# print(downloadTxtpath)
+
+
+# 下载路径 http://reportdocs.static.szse.cn/files/text/ETFDown/pcf_159923_20181126.txt
+txtfilename=[] #
+xmlfilename=[]
+xmlurl = []
+txturl = []
+
+
+for i in downloadTxtpath:
+    a=re.findall(r'pcf\_\d+\_\d+',i)
+    txturl.append('http://reportdocs.static.szse.cn/files/text/etfdown/'+a[0]+'.txt')
+    txtfilename.append(a[0]+'.txt')
+#
+for xmlpath in downloadXmlpath:
+    xmlpatha=re.findall(r'pcf\_\d+\_\d+',xmlpath)
+    xmlurl.append('http://reportdocs.static.szse.cn/files/text/etfdown/'+xmlpatha[0]+'.xml')
+    xmlfilename.append(xmlpatha[0]+'.xml')
+# print(xmlurl)
+# print(txturl)
 
 def downloadtxt():
-    for i in range(len(txtdownloadurl)):
-        try:
-            reptxt = requests.get(txtdownloadurl[i],timeout=500)
-            reptxt.encoding = 'gb18030'
-            reptext = reptxt.text
-            xmlfile = open(textfilename[i], 'w', encoding='gb18030')
-            xmlfile.write(reptext)
-            xmlfile.close()
-            print(textfilename[i])
-            print(txtdownloadurl[i])
-        except ConnectionError as e:
-            print(e)
+    for i in range(len(txturl)):
+        reptxt=requests.get(txturl[i],timeout=500)
+        reptxt.encoding='gb18030'
+        reptext = reptxt.text
+        with open(txtfilename[i], 'w', encoding='gb18030') as f:
+            print('下载:' + txtfilename[i])
+            f.write(reptext)
 
 def downloadxml():
-    for i in range(len(xmldownloadurl)):
-        try:
-            rep = requests.get(xmldownloadurl[i],timeout=500)
-            rep.encoding = 'UTF-8'
-            reptext = rep.text
-            xmlfile = open(xmlfilename[i], 'w', encoding='UTF-8')
-            xmlfile.write(reptext)
-            xmlfile.close()
-            print(xmlfilename[i])
-            print(xmldownloadurl[i])
-        except ConnectionError as e:
-            print(e)
-
-
+    for i in range(len(xmlurl)):
+        reptxt=requests.get(xmlurl[i],timeout=500)
+        reptxt.encoding='UTF-8'
+        reptext = reptxt.text
+        with open(xmlfilename[i], 'w', encoding='UTF-8') as f:
+            print('下载:'+xmlfilename[i])
+            f.write(reptext)
 
 
 th_xml = threading.Thread(target=downloadxml)
@@ -98,25 +102,3 @@ th_txt.start()
 th_xml.join()
 th_txt.join()
 print('Finish Download')
-
-
-
-
-# def downloadtxt():
-#     for i in range(len(txtdownloadurl)):
-#         reptxt = requests.get(txtdownloadurl[i],timeout=500)
-#         reptxt.encoding = 'gb18030'
-#         reptext = reptxt.text
-#         xmlfile = open(textfilename[i], 'w', encoding='gb18030')
-#         xmlfile.write(reptext)
-#         xmlfile.close()
-#
-# def downloadxml():
-#     for i in range(len(xmldownloadurl)):
-#         rep = requests.get(xmldownloadurl[i],timeout=500)
-#         rep.encoding = 'UTF-8'
-#         reptext = rep.text
-#         xmlfile = open(xmlfilename[i], 'w', encoding='UTF-8')
-#         xmlfile.write(reptext)
-#         xmlfile.close()
-
