@@ -19,6 +19,7 @@ print(list(filter(is_odd,[1,2,3,4,5,6])))
 
 **filter函数时候后，返回的是一个filter的对象（一个Iterator,是一个惰性序列，如果需要返回所有计算的结果，需要使用list()函数获得所有结果并返回list。)**
 
+### 例子：写一个素数序列
 ```python
 def odd_list():
     n=1
