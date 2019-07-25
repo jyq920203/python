@@ -34,8 +34,10 @@ class AppConfig(Frame):
         writetofile = WRITE2BINARY()
         md32 = MD5232()
         list = sample.trans2list2string(sample.readfromcsv(self.filename))
+        print(list)
         writetofile.write2binary(list, writefile)
-        string_32 = md32.tans232(md32.combineString(prefixString,list))
+        string_32 = md32.tans232(md32.combineString(prefixString,WRITE2BINARY().encode(list)))
+        print(md32.combineString(prefixString,list))
         writetofile.write2file(string_32,writefile)
         messagebox.showinfo(title="完成", message="已转换为二进制文件完成！")
 
