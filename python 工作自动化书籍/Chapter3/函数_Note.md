@@ -20,6 +20,19 @@
 3. 否则，该变量用于函数中的赋值语句，是局部变量
 4. 但是，该变量没有用在赋值语句中，那么还是全局变量。
 **特别注意的是3，4两条。**
+```python
+def spam():
+  global eggs
+  eggs = 'spam' # this is the global，这个说的是上面的第二条
+def bacon():
+  eggs = 'bacon' # this is a local，这个说的是上面的第三条
+def ham():
+  print(eggs) # this is the global,这个就是说的上面的第四条
+
+eggs = 42 # this is the global
+spam()
+print(eggs)
+```
 
 在一个函数中，如果试图在局部变量赋值之前就使用它，就会报错。
 ```python
